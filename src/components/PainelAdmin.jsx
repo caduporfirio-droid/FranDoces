@@ -60,7 +60,7 @@ export default function PainelAdmin({ user, onLogout }) {
     if (isDemo) {
       // Dados mockados (Sabores Reais da Fran Doces)
       const mock = JSON.parse(localStorage.getItem('fran_doces_demo_produtos')) || [
-        { id: '1', nome: 'Bolo no Pote Ninho com Morango', descricao: 'Massa de baunilha com recheio de brigadeiro de ninho com morangos e cobertura de chantininho com granulado de chocolate branco.', preco: 15.00, disponivel: true, imagem_url: '/imagens/Brigadeiro de Ninho com Morango.jpg' },
+        { id: '1', nome: 'Bolo no Pote Ninho com Morango', descricao: 'Massa de chocolate, recheio de brigadeiro de chocolate, Ninho com morangos e cobertura de brigadeiro com granulado de chocolate ao leite.', preco: 15.00, disponivel: true, imagem_url: '/imagens/Brigadeiro de Ninho com Morango.jpg' },
         { id: '2', nome: 'Bolo no Pote Brigadeiro com Morangos', descricao: 'Massa de chocolate com recheio de brigadeiro de chocolate com morangos e cobertura de brigadeiro com granulado de chocolate ao leite.', preco: 15.00, disponivel: true, imagem_url: '/imagens/Brigadeiro com Morango.jpg' },
         { id: '3', nome: 'Bolo no Pote Prestígio', descricao: 'Clássico bolo de chocolate recheado com creme de coco cremoso e cobertura de ganache de chocolate.', preco: 15.00, disponivel: true, imagem_url: '/imagens/Prestigio.jpg' },
         { id: '4', nome: 'Bolo no Pote Brigadeiro com Maracujá', descricao: 'Massa de chocolate com recheio de brigadeiro de maracujá e cobertura de brigadeiro de chocolate com granulado de chocolate ao leite.', preco: 15.00, disponivel: true, imagem_url: '/imagens/Brigadeiro de Maracuja.jpg' },

@@ -112,7 +112,7 @@ WITH CHECK (true);
 -- 3. DADOS INICIAIS DE EXEMPLO (OPCIONAL)
 -- =========================================================================
 INSERT INTO public.produtos (nome, descricao, preco, disponivel, imagem_url) VALUES
-('Bolo no Pote Ninho com Morango', 'Massa de baunilha com recheio de brigadeiro de ninho com morangos e cobertura de chantininho com granulado de chocolate branco.', 15.00, true, '/imagens/Brigadeiro de Ninho com Morango.jpg'),
+('Bolo no Pote Ninho com Morango', 'Massa de chocolate, recheio de brigadeiro de chocolate, Ninho com morangos e cobertura de brigadeiro com granulado de chocolate ao leite.', 15.00, true, '/imagens/Brigadeiro de Ninho com Morango.jpg'),
 ('Bolo no Pote Brigadeiro com Morangos', 'Massa de chocolate com recheio de brigadeiro de chocolate com morangos e cobertura de brigadeiro com granulado de chocolate ao leite.', 15.00, true, '/imagens/Brigadeiro com Morango.jpg'),
 ('Bolo no Pote Prestígio', 'Clássico bolo de chocolate recheado com creme de coco cremoso e cobertura de ganache de chocolate.', 15.00, true, '/imagens/Prestigio.jpg'),
 ('Bolo no Pote Brigadeiro com Maracujá', 'Massa de chocolate com recheio de brigadeiro de maracujá e cobertura de brigadeiro de chocolate com granulado de chocolate ao leite.', 15.00, true, '/imagens/Brigadeiro de Maracuja.jpg'),

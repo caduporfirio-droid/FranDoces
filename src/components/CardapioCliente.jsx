@@ -38,7 +38,7 @@ export default function CardapioCliente({ onGoToAdmin }) {
           {
             id: '1',
             nome: 'Bolo no Pote Ninho com Morango',
-            descricao: 'Massa de baunilha com recheio de brigadeiro de ninho com morangos e cobertura de chantininho com granulado de chocolate branco.',
+            descricao: 'Massa de chocolate, recheio de brigadeiro de chocolate, Ninho com morangos e cobertura de brigadeiro com granulado de chocolate ao leite.',
             preco: 15.00,
             disponivel: true,
             imagem_url: '/imagens/Brigadeiro de Ninho com Morango.jpg'
