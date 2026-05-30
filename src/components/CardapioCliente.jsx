@@ -10,6 +10,8 @@ export default function CardapioCliente({ onGoToAdmin }) {
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const [animandoCarrinho, setAnimandoCarrinho] = useState(false);
   const [logoError, setLogoError] = useState(false);
+  const [pedidoConfirmado, setPedidoConfirmado] = useState(null);
+  const [chaveCopiada, setChaveCopiada] = useState(false);
 
   // Formulário de Checkout
   const [checkoutForm, setCheckoutForm] = useState({
@@ -193,42 +195,22 @@ export default function CardapioCliente({ onGoToAdmin }) {
       ]);
 
       if (error) {
-        console.error('Erro ao gravar venda no Supabase (prosseguindo para o WhatsApp):', error);
+        console.error('Erro ao gravar venda no Supabase:', error);
       }
 
-      // 2. Escolher número de WhatsApp para revezamento
-      const whatsappDestino = obterNumeroWhatsApp();
-
-      // 3. Formatar mensagem
-      let mensagem = `Olá! Novo pedido feito pelo site:\n\n`;
-      carrinho.forEach((item) => {
-        mensagem += `• ${item.quantidade}x *${item.nome}* - R$ ${(item.preco * item.quantidade).toFixed(2)}\n`;
+      // Salva os dados do pedido confirmado para abrir o modal de sucesso/Pix
+      setPedidoConfirmado({
+        nome: checkoutForm.nome,
+        total: totalCarrinho,
+        formaPagamento: checkoutForm.formaPagamento,
+        tipoEntrega: checkoutForm.tipoEntrega,
+        endereco: checkoutForm.endereco
       });
 
-      if (checkoutForm.observacao.trim()) {
-        mensagem += `\n*Obs do Pedido:* ${checkoutForm.observacao}\n`;
-      }
-
-      mensagem += `\n*Forma de Pagamento:* ${checkoutForm.formaPagamento.toUpperCase()}`;
-      mensagem += `\n*Total:* R$ ${totalCarrinho.toFixed(2)}`;
-      mensagem += `\n\n*Cliente:* ${checkoutForm.nome}`;
-      mensagem += `\n*Entrega:* ${checkoutForm.tipoEntrega === 'entrega' ? '🚗 Entrega em Domicílio' : '🏪 Retirada no Local'}`;
-      
-      if (checkoutForm.tipoEntrega === 'entrega') {
-        mensagem += `\n*Endereço:* ${checkoutForm.endereco}`;
-      }
-
-      // 4. Redirecionar para WhatsApp
-      const urlEncodedText = encodeURIComponent(mensagem);
-      const linkWhatsApp = `https://api.whatsapp.com/send?phone=${whatsappDestino}&text=${urlEncodedText}`;
-      
       // Limpar carrinho e fechar modais
       setCarrinho([]);
       setIsCheckoutOpen(false);
       setIsCarrinhoOpen(false);
-      
-      // Abre o link do WhatsApp
-      window.open(linkWhatsApp, '_blank');
     } catch (err) {
       console.error('Erro ao processar checkout:', err);
       alert('Desculpe, ocorreu um erro ao salvar seu pedido. Tente novamente.');
@@ -672,9 +654,144 @@ export default function CardapioCliente({ onGoToAdmin }) {
                 className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded-xl shadow-lg transition-transform hover:scale-[1.01] duration-150 flex items-center justify-center space-x-2 mt-6"
               >
                 <CheckCircle2 className="w-5 h-5" />
-                <span>Confirmar e Enviar WhatsApp</span>
+                <span>Confirmar Pedido</span>
               </button>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* MODAL DE SUCESSO DO PEDIDO (PIX OU CARTÃO) */}
+      {pedidoConfirmado && (
+        <div className="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-4">
+          {/* Backdrop */}
+          <div 
+            className="fixed inset-0 bg-stone-900/60 backdrop-blur-xs" 
+            onClick={() => {
+              if (pedidoConfirmado.formaPagamento !== 'pix') {
+                setPedidoConfirmado(null);
+              }
+            }}
+          ></div>
+
+          <div className="relative bg-[#f8f8f8] rounded-[32px] max-w-sm w-full shadow-2xl overflow-hidden z-10 p-6 flex flex-col items-center text-center border border-amber-100/50">
+            {pedidoConfirmado.formaPagamento === 'pix' ? (
+              <div className="w-full space-y-5">
+                
+                {/* Botão de Fechar Modal no topo direito */}
+                <button
+                  onClick={() => setPedidoConfirmado(null)}
+                  className="absolute top-4 right-4 p-1 bg-stone-200/50 hover:bg-stone-200 rounded-full transition-colors text-stone-600"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+
+                {/* Cabeçalho */}
+                <div className="flex flex-col items-center">
+                  <div className="w-10 h-10 rounded-full bg-amber-50 flex items-center justify-center text-amber-800 mb-2">
+                    <Sparkles className="w-5 h-5" />
+                  </div>
+                  <h3 className="text-xl font-bold font-serif text-amber-950">Apresentar Casal</h3>
+                  <p className="text-xs text-stone-500 mt-1">
+                    Você escolheu: <span className="font-semibold text-stone-700">Cotas de lua de mel!</span>
+                  </p>
+                  <p className="text-2xl font-black text-amber-950 mt-1.5">
+                    R$ {Number(pedidoConfirmado.total).toFixed(2)}
+                  </p>
+                </div>
+
+                {/* Box do QR Code */}
+                <div className="bg-white rounded-2xl p-5 border border-stone-200/60 flex flex-col items-center shadow-xs">
+                  <p className="text-[10px] font-bold text-stone-400 uppercase tracking-wider mb-3">
+                    Escaneie o QR Code ou use a chave abaixo:
+                  </p>
+                  
+                  {/* QR Code Container com logo do Itaú no meio */}
+                  <div className="relative w-40 h-40 bg-white p-1 rounded-xl border border-stone-100 flex items-center justify-center">
+                    <img 
+                      src={`https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(
+                        `00020101021226840014br.gov.bcb.pix2562pix.itau.com.br/qr/v2/44122d26-7c98-4682-841c-3094ca5ec72e5204000053039865802BR5916Francine Giavoni6009Sao Paulo62070503***6304D1B5`
+                      )}`}
+                      alt="QR Code Pix"
+                      className="w-full h-full object-contain"
+                    />
+                    {/* Logo Itaú centralizado no QR Code */}
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#004691] text-white font-extrabold text-[8px] px-1 py-0.5 rounded border border-white shadow-md flex items-center justify-center font-sans tracking-tighter">
+                      itaú
+                    </div>
+                  </div>
+
+                  {/* Nome da Francine */}
+                  <h4 className="text-xs font-black text-[#ff6200] uppercase tracking-wide mt-4">
+                    FRANCINE GIAVONI
+                  </h4>
+                  <p className="text-[10px] text-stone-400 font-bold mt-0.5">
+                    +55 (11) 97544-7082
+                  </p>
+                </div>
+
+                {/* Botão de Chave Copia e Cola */}
+                <div className="space-y-2.5">
+                  <div className="w-full bg-white border border-stone-200/80 rounded-xl py-3.5 text-sm font-bold text-stone-700 shadow-xs">
+                    11975447082
+                  </div>
+                  
+                  <button
+                    type="button"
+                    onClick={() => {
+                      navigator.clipboard.writeText('11975447082');
+                      setChaveCopiada(true);
+                      setTimeout(() => setChaveCopiada(false), 2000);
+                    }}
+                    className={`w-full font-bold py-3.5 rounded-xl border transition-colors text-xs ${
+                      chaveCopiada 
+                        ? 'bg-emerald-50 text-emerald-800 border-emerald-200' 
+                        : 'bg-[#eeeeee] hover:bg-stone-200 text-stone-700 border-stone-200/60 shadow-xs'
+                    }`}
+                  >
+                    {chaveCopiada ? 'Chave Copiada!' : 'Copiar Chave'}
+                  </button>
+                </div>
+
+                {/* Botão de Fechamento */}
+                <button
+                  type="button"
+                  onClick={() => setPedidoConfirmado(null)}
+                  className="w-full bg-[#1b1b1b] hover:bg-black text-white font-bold py-3.5 rounded-xl text-xs uppercase tracking-wider transition-all shadow-md"
+                >
+                  JÁ REALIZEI O PIX
+                </button>
+              </div>
+            ) : (
+              <div className="w-full space-y-6 py-4">
+                <div className="w-16 h-16 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mx-auto shadow-xs border border-emerald-100">
+                  <CheckCircle2 className="w-10 h-10" />
+                </div>
+                
+                <div className="space-y-2">
+                  <h3 className="text-xl font-bold font-serif text-amber-950">Pedido Confirmado!</h3>
+                  <p className="text-xs text-stone-500 px-2 leading-relaxed">
+                    Olá <span className="font-semibold text-stone-700">{pedidoConfirmado.nome}</span>, recebemos seu pedido de bolo no pote com sucesso! 
+                  </p>
+                  <p className="text-xs text-stone-500 px-2 leading-relaxed">
+                    A maquininha de cartão será enviada junto com o seu pedido.
+                  </p>
+                </div>
+
+                <div className="bg-white rounded-2xl p-4 border border-stone-200/60 text-left text-xs space-y-1.5 text-stone-600 shadow-xs">
+                  <p><strong>Total:</strong> R$ {Number(pedidoConfirmado.total).toFixed(2)}</p>
+                  <p><strong>Entrega:</strong> {pedidoConfirmado.tipoEntrega === 'entrega' ? `🚗 ${pedidoConfirmado.endereco}` : '🏪 Retirada no Local'}</p>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setPedidoConfirmado(null)}
+                  className="w-full bg-[#1b1b1b] hover:bg-black text-white font-bold py-3.5 rounded-xl text-xs uppercase tracking-wider transition-all shadow-md"
+                >
+                  Entendido
+                </button>
+              </div>
+            )}
           </div>
         </div>
       )}
