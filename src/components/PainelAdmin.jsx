@@ -705,13 +705,13 @@ export default function PainelAdmin({ user, onLogout }) {
                     <div>
                       <label className="block text-xs font-bold text-stone-500 uppercase tracking-wider mb-1.5">URL da Imagem</label>
                       <input
-                        type="url"
+                        type="text"
                         value={formProduto.imagem_url}
                         onChange={(e) => setFormProduto({ ...formProduto, imagem_url: e.target.value })}
-                        placeholder="https://exemplo.com/foto.jpg"
+                        placeholder="https://exemplo.com/foto.jpg ou /imagens/foto.jpg"
                         className="w-full px-4 py-2.5 border border-stone-200 rounded-xl bg-stone-50 focus:outline-none focus:ring-2 focus:ring-amber-700/30"
                       />
-                      <p className="text-[10px] text-stone-400 mt-1">Insira o endereço de uma foto online do bolo.</p>
+                      <p className="text-[10px] text-stone-400 mt-1">Insira o endereço de uma foto online ou caminho local (ex: /imagens/foto.jpg).</p>
                     </div>
 
                     <button
