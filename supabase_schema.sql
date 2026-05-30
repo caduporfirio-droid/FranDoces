@@ -112,10 +112,11 @@ WITH CHECK (true);
 -- 3. DADOS INICIAIS DE EXEMPLO (OPCIONAL)
 -- =========================================================================
 INSERT INTO public.produtos (nome, descricao, preco, disponivel, imagem_url) VALUES
-('Bolo no Pote Ninho com Morango', 'Delicioso bolo no pote com creme aveludado de Leite Ninho gourmet e morangos frescos picados.', 15.00, true, '/imagens/Ninho com Morango.jpg'),
-('Bolo no Pote Brigadeiro com Morango', 'Bolo de chocolate molhadinho com brigadeiro cremoso e pedaços de morango fresco.', 15.00, true, '/imagens/Brigadeiro com Morango.jpg'),
+('Bolo no Pote Ninho com Morango', 'Massa de baunilha com recheio de brigadeiro de ninho com morangos e cobertura de chantininho com granulado de chocolate branco.', 15.00, true, '/imagens/Brigadeiro de Ninho com Morango.jpg'),
+('Bolo no Pote Brigadeiro com Morangos', 'Massa de chocolate com recheio de brigadeiro de chocolate com morangos e cobertura de brigadeiro com granulado de chocolate ao leite.', 15.00, true, '/imagens/Brigadeiro com Morango.jpg'),
 ('Bolo no Pote Prestígio', 'Clássico bolo de chocolate recheado com creme de coco cremoso e cobertura de ganache de chocolate.', 15.00, true, '/imagens/Prestigio.jpg'),
-('Bolo no Pote Brigadeiro de Maracujá', 'Equilíbrio perfeito de creme trufado de maracujá com sementes e brigadeiro.', 15.00, true, '/imagens/Brigadeiro de Maracuja.jpg'),
+('Bolo no Pote Brigadeiro com Maracujá', 'Massa de chocolate com recheio de brigadeiro de maracujá e cobertura de brigadeiro de chocolate com granulado de chocolate ao leite.', 15.00, true, '/imagens/Brigadeiro de Maracuja.jpg'),
 ('Bolo no Pote Abacaxi com Coco', 'Bolo de baunilha molhado com calda de coco, pedaços de abacaxi cozidos e creme suave.', 15.00, true, '/imagens/Abacaxi com Coco.jpg'),
-('Bolo no Pote Ninho com Nutella', 'Combinação irresistível de Leite Ninho cremoso com recheio autêntico de Nutella.', 15.00, true, '/imagens/Ninho com Nutella.jpg')
+('Bolo no Pote Ninho com Nutella', 'Massa de baunilha com recheio de brigadeiro de ninho com nutella e cobertura de chantininho com granulado de chocolate branco.', 15.00, true, '/imagens/Ninho com Nutella.jpg'),
+('Bolo no Pote Merengue de Morango', 'Massa de baunilha com recheio de creme de baunilha com morangos e cobertura de chantininho com suspiros.', 15.00, true, '/imagens/Ninho com Morango.jpg')
 ON CONFLICT DO NOTHING;

@@ -38,15 +38,15 @@ export default function CardapioCliente({ onGoToAdmin }) {
           {
             id: '1',
             nome: 'Bolo no Pote Ninho com Morango',
-            descricao: 'Delicioso bolo no pote com creme aveludado de Leite Ninho gourmet e morangos frescos picados.',
+            descricao: 'Massa de baunilha com recheio de brigadeiro de ninho com morangos e cobertura de chantininho com granulado de chocolate branco.',
             preco: 15.00,
             disponivel: true,
-            imagem_url: '/imagens/Ninho com Morango.jpg'
+            imagem_url: '/imagens/Brigadeiro de Ninho com Morango.jpg'
           },
           {
             id: '2',
-            nome: 'Bolo no Pote Brigadeiro com Morango',
-            descricao: 'Bolo de chocolate molhadinho com brigadeiro cremoso e pedaços de morango fresco.',
+            nome: 'Bolo no Pote Brigadeiro com Morangos',
+            descricao: 'Massa de chocolate com recheio de brigadeiro de chocolate com morangos e cobertura de brigadeiro com granulado de chocolate ao leite.',
             preco: 15.00,
             disponivel: true,
             imagem_url: '/imagens/Brigadeiro com Morango.jpg'
@@ -61,8 +61,8 @@ export default function CardapioCliente({ onGoToAdmin }) {
           },
           {
             id: '4',
-            nome: 'Bolo no Pote Brigadeiro de Maracujá',
-            descricao: 'Equilíbrio perfeito de creme trufado de maracujá com sementes e brigadeiro.',
+            nome: 'Bolo no Pote Brigadeiro com Maracujá',
+            descricao: 'Massa de chocolate com recheio de brigadeiro de maracujá e cobertura de brigadeiro de chocolate com granulado de chocolate ao leite.',
             preco: 15.00,
             disponivel: true,
             imagem_url: '/imagens/Brigadeiro de Maracuja.jpg'
@@ -78,10 +78,18 @@ export default function CardapioCliente({ onGoToAdmin }) {
           {
             id: '6',
             nome: 'Bolo no Pote Ninho com Nutella',
-            descricao: 'Combinação irresistível de Leite Ninho cremoso com recheio autêntico de Nutella.',
+            descricao: 'Massa de baunilha com recheio de brigadeiro de ninho com nutella e cobertura de chantininho com granulado de chocolate branco.',
             preco: 15.00,
             disponivel: true,
             imagem_url: '/imagens/Ninho com Nutella.jpg'
+          },
+          {
+            id: '7',
+            nome: 'Bolo no Pote Merengue de Morango',
+            descricao: 'Massa de baunilha com recheio de creme de baunilha com morangos e cobertura de chantininho com suspiros.',
+            preco: 15.00,
+            disponivel: true,
+            imagem_url: '/imagens/Ninho com Morango.jpg'
           }
         ]);
       } finally {
