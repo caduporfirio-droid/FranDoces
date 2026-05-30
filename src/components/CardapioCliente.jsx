@@ -160,6 +160,50 @@ export default function CardapioCliente({ onGoToAdmin }) {
     }
   };
 
+  // Enviar Pedido para o Telegram
+  const enviarPedidoTelegram = async (form, itens, total) => {
+    const token = import.meta.env.VITE_TELEGRAM_BOT_TOKEN;
+    const chatId = import.meta.env.VITE_TELEGRAM_CHAT_ID;
+
+    if (!token || !chatId) {
+      console.warn('Telegram Bot Token ou Chat ID não configurados no arquivo .env');
+      return;
+    }
+
+    const itensStr = itens.map(item => 
+      `• ${item.quantidade}x <b>${item.nome}</b> (R$ ${Number(item.preco).toFixed(2)}/un)`
+    ).join('\n');
+
+    const texto = `<b>🔔 NOVO PEDIDO CONFIRMADO!</b>\n\n` +
+      `👤 <b>Cliente:</b> ${form.nome}\n` +
+      `🛵 <b>Entrega:</b> ${form.tipoEntrega === 'entrega' ? 'Entrega' : 'Retirada no Local'}\n` +
+      (form.tipoEntrega === 'entrega' ? `📍 <b>Endereço:</b> ${form.endereco}\n` : '') +
+      `💳 <b>Pagamento:</b> ${form.formaPagamento === 'pix' ? 'Pix (Chave Copiada)' : form.formaPagamento}\n` +
+      (form.observacao ? `💬 <b>Obs:</b> ${form.observacao}\n` : '') +
+      `\n📦 <b>Itens:</b>\n${itensStr}\n\n` +
+      `💰 <b>Total:</b> R$ ${Number(total).toFixed(2)}`;
+
+    try {
+      const response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: texto,
+          parse_mode: 'HTML',
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Erro na API do Telegram: ${response.statusText}`);
+      }
+    } catch (error) {
+      console.error('Falha ao enviar notificação para o Telegram:', error);
+    }
+  };
+
   // Finalizar Pedido
   const handleFinalizarPedido = async (e) => {
     e.preventDefault();
@@ -197,6 +241,9 @@ export default function CardapioCliente({ onGoToAdmin }) {
       if (error) {
         console.error('Erro ao gravar venda no Supabase:', error);
       }
+
+      // 2. Enviar notificação para o Telegram
+      await enviarPedidoTelegram(checkoutForm, carrinho, totalCarrinho);
 
       // Salva os dados do pedido confirmado para abrir o modal de sucesso/Pix
       setPedidoConfirmado({
