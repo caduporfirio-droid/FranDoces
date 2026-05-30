@@ -1,0 +1,20 @@
+INSTRUÇÕES PARA SALVAR AS FOTOS DO CARDÁPIO DIGITAL (FRAN DOCES)
+
+Para que o site exiba as fotos reais dos seus bolos no pote e a sua logo, basta você salvar as fotos que enviou no chat diretamente nesta pasta (public/imagens/) com os seguintes nomes de arquivo:
+
+1. Sua logo circular:
+   -> Nome do arquivo: logo.png (ou salve como logo.jpg)
+
+2. Bolo no Pote Ninho com Morango (a foto com morangos picados, creme e granulado em cima):
+   -> Nome do arquivo: ninho_morango.jpg
+
+3. Bolo no Pote Prestígio / Sensação (a foto com morangos picados no meio e calda de chocolate lisa):
+   -> Nome do arquivo: chocolate_morango.jpg
+
+4. Bolo no Pote de Maracujá (a foto com a cobertura amarela de maracujá e sementes preta):
+   -> Nome do arquivo: maracuja.jpg
+
+5. Bolo no Pote Leite Ninho Tradicional (a foto do bolo com cobertura branca lisa):
+   -> Nome do arquivo: ninho.jpg
+
+Assim que você colocar os arquivos de imagem aqui com esses nomes exatos, o site passará a carregar suas fotos reais automaticamente (tanto localmente quanto quando você fizer o deploy na internet)!
