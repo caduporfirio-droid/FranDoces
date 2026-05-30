@@ -688,45 +688,30 @@ export default function CardapioCliente({ onGoToAdmin }) {
 
                 {/* Cabeçalho */}
                 <div className="flex flex-col items-center">
-                  <div className="w-10 h-10 rounded-full bg-amber-50 flex items-center justify-center text-amber-800 mb-2">
-                    <Sparkles className="w-5 h-5" />
+                  <div className="w-10 h-10 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600 mb-2">
+                    <CheckCircle2 className="w-6 h-6" />
                   </div>
-                  <h3 className="text-xl font-bold font-serif text-amber-950">Apresentar Casal</h3>
+                  <h3 className="text-xl font-bold font-serif text-amber-950">Pedido Confirmado!</h3>
                   <p className="text-xs text-stone-500 mt-1">
-                    Você escolheu: <span className="font-semibold text-stone-700">Cotas de lua de mel!</span>
+                    Obrigado pelo seu pedido, <span className="font-semibold text-stone-700">{pedidoConfirmado.nome}</span>!
                   </p>
                   <p className="text-2xl font-black text-amber-950 mt-1.5">
                     R$ {Number(pedidoConfirmado.total).toFixed(2)}
                   </p>
                 </div>
 
-                {/* Box do QR Code */}
+                {/* Box de Informações de Pagamento (sem QR Code) */}
                 <div className="bg-white rounded-2xl p-5 border border-stone-200/60 flex flex-col items-center shadow-xs">
-                  <p className="text-[10px] font-bold text-stone-400 uppercase tracking-wider mb-3">
-                    Escaneie o QR Code ou use a chave abaixo:
+                  <p className="text-[10px] font-bold text-stone-400 uppercase tracking-wider mb-4 text-center">
+                    Copie a chave Pix celular abaixo para realizar o pagamento:
                   </p>
-                  
-                  {/* QR Code Container com logo do Itaú no meio */}
-                  <div className="relative w-40 h-40 bg-white p-1 rounded-xl border border-stone-100 flex items-center justify-center">
-                    <img 
-                      src={`https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(
-                        `00020101021226840014br.gov.bcb.pix2562pix.itau.com.br/qr/v2/44122d26-7c98-4682-841c-3094ca5ec72e5204000053039865802BR5916Francine Giavoni6009Sao Paulo62070503***6304D1B5`
-                      )}`}
-                      alt="QR Code Pix"
-                      className="w-full h-full object-contain"
-                    />
-                    {/* Logo Itaú centralizado no QR Code */}
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#004691] text-white font-extrabold text-[8px] px-1 py-0.5 rounded border border-white shadow-md flex items-center justify-center font-sans tracking-tighter">
-                      itaú
-                    </div>
-                  </div>
 
                   {/* Nome da Francine */}
-                  <h4 className="text-xs font-black text-[#ff6200] uppercase tracking-wide mt-4">
+                  <h4 className="text-sm font-black text-[#ff6200] uppercase tracking-wide">
                     FRANCINE GIAVONI
                   </h4>
-                  <p className="text-[10px] text-stone-400 font-bold mt-0.5">
-                    +55 (11) 97544-7082
+                  <p className="text-[10px] text-stone-400 font-bold mt-1">
+                    Banco Itaú S.A. • Chave Celular
                   </p>
                 </div>
 
