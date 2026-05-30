@@ -239,9 +239,9 @@ export default function CardapioCliente({ onGoToAdmin }) {
     <div className="min-h-screen bg-stone-50 font-sans text-stone-800 pb-24">
       {/* Header Premium */}
       <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-amber-100 shadow-sm">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-full overflow-hidden bg-amber-700 flex items-center justify-center text-white shadow-md">
+        <div className="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+          <div className="flex items-center space-x-4">
+            <div className="w-14 h-14 rounded-full overflow-hidden border border-amber-100 bg-amber-700 flex items-center justify-center text-white shadow-md">
               {!logoError ? (
                 <img 
                   src="/imagens/logo.jpg" 
@@ -250,12 +250,12 @@ export default function CardapioCliente({ onGoToAdmin }) {
                   className="w-full h-full object-cover"
                 />
               ) : (
-                <Sparkles className="w-5 h-5 text-amber-100" />
+                <Sparkles className="w-6 h-6 text-amber-100" />
               )}
             </div>
             <div>
               <h1 className="text-xl font-bold tracking-tight text-amber-950 font-serif leading-none">Fran Doces</h1>
-              <p className="text-xs text-amber-700 font-medium">Bolos no Pote e Encomendas Gourmet</p>
+              <p className="text-xs text-amber-700 font-medium mt-1">Bolos no Pote e Encomendas Gourmet</p>
             </div>
           </div>
 
@@ -278,7 +278,26 @@ export default function CardapioCliente({ onGoToAdmin }) {
       {/* Banner Principal */}
       <section className="bg-gradient-to-br from-amber-950 to-amber-900 text-white py-12 px-4 text-center relative overflow-hidden shadow-inner">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.08)_0%,transparent_100%)]"></div>
-        <div className="max-w-3xl mx-auto relative z-10 space-y-4">
+        <div className="max-w-3xl mx-auto relative z-10 space-y-5">
+          
+          {/* Logo Centralizada Gigante em Destaque */}
+          <div className="flex justify-center">
+            <div className="w-28 h-28 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-white/95 bg-amber-900 shadow-2xl transition-transform hover:scale-105 duration-300">
+              {!logoError ? (
+                <img 
+                  src="/imagens/logo.jpg" 
+                  alt="Logo Fran Doces" 
+                  onError={() => setLogoError(true)} 
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center text-white bg-amber-800">
+                  <Sparkles className="w-12 h-12 text-amber-200" />
+                </div>
+              )}
+            </div>
+          </div>
+
           <span className="inline-block bg-amber-600/30 border border-amber-500/50 text-amber-200 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">
             Feito com Amor
           </span>
