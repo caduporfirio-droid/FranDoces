@@ -374,12 +374,6 @@ export default function CardapioCliente({ onGoToAdmin }) {
       <footer className="max-w-6xl mx-auto px-4 py-8 text-center text-stone-400 text-xs border-t border-amber-100">
         <p>© 2026 Fran Doces. Todos os direitos reservados.</p>
         <p className="mt-1">Feito com muito açúcar e carinho.</p>
-        <button
-          onClick={onGoToAdmin}
-          className="mt-4 text-amber-700/60 hover:text-amber-700 underline font-medium"
-        >
-          Área do Administrador
-        </button>
       </footer>
 
       {/* DRAWER DO CARRINHO (Lateral Direita) */}

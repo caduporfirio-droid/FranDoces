@@ -8,8 +8,16 @@ function App() {
   const [tela, setTela] = useState('cliente'); // 'cliente' | 'login' | 'admin'
   const [usuario, setUsuario] = useState(null);
 
-  // Escuta o status de autenticação ativa do Supabase
+  // Escuta o status de autenticação ativa do Supabase e parâmetros secretos de URL
   useEffect(() => {
+    // Parâmetro secreto na URL para acessar o painel administrativo de forma oculta
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('admin') === 'true' || params.get('gerente') === 'true' || params.get('login') === 'true') {
+      setTela('login');
+      // Limpa a URL na barra de endereços silenciosamente para que ninguém veja o parâmetro
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+
     // Pegar sessão atual na inicialização
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session?.user) {
